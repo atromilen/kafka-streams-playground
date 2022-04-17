@@ -1,0 +1,13 @@
+{
+  "namespace": "cl.atromilen.kafkastreams.avro",
+  "type": "record",
+  "name": "MovieAvro",
+  "fields": [
+    {"name": "name", "type": "string"},
+    {"name": "director", "type": "string"},
+    {"name": "cast", "type":
+                      {"type": "array", "items": "string"},                     
+      "default": []
+    }
+    ]
+}
