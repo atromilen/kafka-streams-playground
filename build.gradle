@@ -1,0 +1,46 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url = uri("https://packages.confluent.io/maven/")
+        }
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
+        maven {
+            url = uri("https://jitpack.io")
+        }
+    }
+}
+
+plugins {
+    id 'java'
+    id "com.github.imflog.kafka-schema-registry-gradle-plugin" version "1.1.1"
+    id "com.github.davidmc24.gradle.plugin.avro" version "1.0.0"
+}
+
+group 'cl.atromilen'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("https://packages.confluent.io/maven/")
+    }
+
+    maven {
+        url = uri("https://jitpack.io")
+    }
+}
+
+dependencies {
+    implementation 'org.apache.avro:avro:1.11.0'
+}
+
+schemaRegistry {
+    url = 'http://localhost:8081'
+
+    register {
+        subject('avro-movies-value', 'src/main/avro/movie.avsc','AVRO')
+    }
+}
