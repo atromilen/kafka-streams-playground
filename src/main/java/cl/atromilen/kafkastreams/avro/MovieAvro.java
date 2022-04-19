@@ -5,10 +5,12 @@
  */
 package cl.atromilen.kafkastreams.avro;
 
-import org.apache.avro.message.BinaryMessageDecoder;
-import org.apache.avro.message.BinaryMessageEncoder;
-import org.apache.avro.message.SchemaStore;
+import org.apache.avro.generic.GenericArray;
 import org.apache.avro.specific.SpecificData;
+import org.apache.avro.util.Utf8;
+import org.apache.avro.message.BinaryMessageEncoder;
+import org.apache.avro.message.BinaryMessageDecoder;
+import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
@@ -69,9 +71,9 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
     return DECODER.decode(b);
   }
 
-  @Deprecated public String name;
-  @Deprecated public String director;
-  @Deprecated public java.util.List<String> cast;
+  @Deprecated public java.lang.String name;
+  @Deprecated public java.lang.String director;
+  @Deprecated public java.util.List<java.lang.String> cast;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -86,16 +88,16 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
    * @param director The new value for director
    * @param cast The new value for cast
    */
-  public MovieAvro(String name, String director, java.util.List<String> cast) {
+  public MovieAvro(java.lang.String name, java.lang.String director, java.util.List<java.lang.String> cast) {
     this.name = name;
     this.director = director;
     this.cast = cast;
   }
 
-  public SpecificData getSpecificData() { return MODEL$; }
+  public org.apache.avro.specific.SpecificData getSpecificData() { return MODEL$; }
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
   // Used by DatumWriter.  Applications should not call.
-  public Object get(int field$) {
+  public java.lang.Object get(int field$) {
     switch (field$) {
     case 0: return name;
     case 1: return director;
@@ -106,11 +108,11 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
 
   // Used by DatumReader.  Applications should not call.
   @SuppressWarnings(value="unchecked")
-  public void put(int field$, Object value$) {
+  public void put(int field$, java.lang.Object value$) {
     switch (field$) {
     case 0: name = value$ != null ? value$.toString() : null; break;
     case 1: director = value$ != null ? value$.toString() : null; break;
-    case 2: cast = (java.util.List<String>)value$; break;
+    case 2: cast = (java.util.List<java.lang.String>)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -119,7 +121,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
    * Gets the value of the 'name' field.
    * @return The value of the 'name' field.
    */
-  public String getName() {
+  public java.lang.String getName() {
     return name;
   }
 
@@ -128,7 +130,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
    * Sets the value of the 'name' field.
    * @param value the value to set.
    */
-  public void setName(String value) {
+  public void setName(java.lang.String value) {
     this.name = value;
   }
 
@@ -136,7 +138,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
    * Gets the value of the 'director' field.
    * @return The value of the 'director' field.
    */
-  public String getDirector() {
+  public java.lang.String getDirector() {
     return director;
   }
 
@@ -145,7 +147,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
    * Sets the value of the 'director' field.
    * @param value the value to set.
    */
-  public void setDirector(String value) {
+  public void setDirector(java.lang.String value) {
     this.director = value;
   }
 
@@ -153,7 +155,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
    * Gets the value of the 'cast' field.
    * @return The value of the 'cast' field.
    */
-  public java.util.List<String> getCast() {
+  public java.util.List<java.lang.String> getCast() {
     return cast;
   }
 
@@ -162,7 +164,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
    * Sets the value of the 'cast' field.
    * @param value the value to set.
    */
-  public void setCast(java.util.List<String> value) {
+  public void setCast(java.util.List<java.lang.String> value) {
     this.cast = value;
   }
 
@@ -170,8 +172,8 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
    * Creates a new MovieAvro RecordBuilder.
    * @return A new MovieAvro RecordBuilder
    */
-  public static Builder newBuilder() {
-    return new Builder();
+  public static cl.atromilen.kafkastreams.avro.MovieAvro.Builder newBuilder() {
+    return new cl.atromilen.kafkastreams.avro.MovieAvro.Builder();
   }
 
   /**
@@ -179,11 +181,11 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
    * @param other The existing builder to copy.
    * @return A new MovieAvro RecordBuilder
    */
-  public static Builder newBuilder(Builder other) {
+  public static cl.atromilen.kafkastreams.avro.MovieAvro.Builder newBuilder(cl.atromilen.kafkastreams.avro.MovieAvro.Builder other) {
     if (other == null) {
-      return new Builder();
+      return new cl.atromilen.kafkastreams.avro.MovieAvro.Builder();
     } else {
-      return new Builder(other);
+      return new cl.atromilen.kafkastreams.avro.MovieAvro.Builder(other);
     }
   }
 
@@ -192,11 +194,11 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
    * @param other The existing instance to copy.
    * @return A new MovieAvro RecordBuilder
    */
-  public static Builder newBuilder(MovieAvro other) {
+  public static cl.atromilen.kafkastreams.avro.MovieAvro.Builder newBuilder(cl.atromilen.kafkastreams.avro.MovieAvro other) {
     if (other == null) {
-      return new Builder();
+      return new cl.atromilen.kafkastreams.avro.MovieAvro.Builder();
     } else {
-      return new Builder(other);
+      return new cl.atromilen.kafkastreams.avro.MovieAvro.Builder(other);
     }
   }
 
@@ -207,9 +209,9 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<MovieAvro>
     implements org.apache.avro.data.RecordBuilder<MovieAvro> {
 
-    private String name;
-    private String director;
-    private java.util.List<String> cast;
+    private java.lang.String name;
+    private java.lang.String director;
+    private java.util.List<java.lang.String> cast;
 
     /** Creates a new Builder */
     private Builder() {
@@ -220,7 +222,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
      * Creates a Builder by copying an existing Builder.
      * @param other The existing Builder to copy.
      */
-    private Builder(Builder other) {
+    private Builder(cl.atromilen.kafkastreams.avro.MovieAvro.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.name)) {
         this.name = data().deepCopy(fields()[0].schema(), other.name);
@@ -240,7 +242,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
      * Creates a Builder by copying an existing MovieAvro instance
      * @param other The existing instance to copy.
      */
-    private Builder(MovieAvro other) {
+    private Builder(cl.atromilen.kafkastreams.avro.MovieAvro other) {
       super(SCHEMA$);
       if (isValidValue(fields()[0], other.name)) {
         this.name = data().deepCopy(fields()[0].schema(), other.name);
@@ -260,7 +262,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
       * Gets the value of the 'name' field.
       * @return The value.
       */
-    public String getName() {
+    public java.lang.String getName() {
       return name;
     }
 
@@ -270,7 +272,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
       * @param value The value of 'name'.
       * @return This builder.
       */
-    public Builder setName(String value) {
+    public cl.atromilen.kafkastreams.avro.MovieAvro.Builder setName(java.lang.String value) {
       validate(fields()[0], value);
       this.name = value;
       fieldSetFlags()[0] = true;
@@ -290,7 +292,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
       * Clears the value of the 'name' field.
       * @return This builder.
       */
-    public Builder clearName() {
+    public cl.atromilen.kafkastreams.avro.MovieAvro.Builder clearName() {
       name = null;
       fieldSetFlags()[0] = false;
       return this;
@@ -300,7 +302,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
       * Gets the value of the 'director' field.
       * @return The value.
       */
-    public String getDirector() {
+    public java.lang.String getDirector() {
       return director;
     }
 
@@ -310,7 +312,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
       * @param value The value of 'director'.
       * @return This builder.
       */
-    public Builder setDirector(String value) {
+    public cl.atromilen.kafkastreams.avro.MovieAvro.Builder setDirector(java.lang.String value) {
       validate(fields()[1], value);
       this.director = value;
       fieldSetFlags()[1] = true;
@@ -330,7 +332,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
       * Clears the value of the 'director' field.
       * @return This builder.
       */
-    public Builder clearDirector() {
+    public cl.atromilen.kafkastreams.avro.MovieAvro.Builder clearDirector() {
       director = null;
       fieldSetFlags()[1] = false;
       return this;
@@ -340,7 +342,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
       * Gets the value of the 'cast' field.
       * @return The value.
       */
-    public java.util.List<String> getCast() {
+    public java.util.List<java.lang.String> getCast() {
       return cast;
     }
 
@@ -350,7 +352,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
       * @param value The value of 'cast'.
       * @return This builder.
       */
-    public Builder setCast(java.util.List<String> value) {
+    public cl.atromilen.kafkastreams.avro.MovieAvro.Builder setCast(java.util.List<java.lang.String> value) {
       validate(fields()[2], value);
       this.cast = value;
       fieldSetFlags()[2] = true;
@@ -370,7 +372,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
       * Clears the value of the 'cast' field.
       * @return This builder.
       */
-    public Builder clearCast() {
+    public cl.atromilen.kafkastreams.avro.MovieAvro.Builder clearCast() {
       cast = null;
       fieldSetFlags()[2] = false;
       return this;
@@ -381,13 +383,13 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
     public MovieAvro build() {
       try {
         MovieAvro record = new MovieAvro();
-        record.name = fieldSetFlags()[0] ? this.name : (String) defaultValue(fields()[0]);
-        record.director = fieldSetFlags()[1] ? this.director : (String) defaultValue(fields()[1]);
-        record.cast = fieldSetFlags()[2] ? this.cast : (java.util.List<String>) defaultValue(fields()[2]);
+        record.name = fieldSetFlags()[0] ? this.name : (java.lang.String) defaultValue(fields()[0]);
+        record.director = fieldSetFlags()[1] ? this.director : (java.lang.String) defaultValue(fields()[1]);
+        record.cast = fieldSetFlags()[2] ? this.cast : (java.util.List<java.lang.String>) defaultValue(fields()[2]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
-      } catch (Exception e) {
+      } catch (java.lang.Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);
       }
     }
@@ -424,7 +426,7 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
     out.writeArrayStart();
     out.setItemCount(size0);
     long actualSize0 = 0;
-    for (String e0: this.cast) {
+    for (java.lang.String e0: this.cast) {
       actualSize0++;
       out.startItem();
       out.writeString(e0);
@@ -445,15 +447,15 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
       this.director = in.readString();
 
       long size0 = in.readArrayStart();
-      java.util.List<String> a0 = this.cast;
+      java.util.List<java.lang.String> a0 = this.cast;
       if (a0 == null) {
-        a0 = new SpecificData.Array<String>((int)size0, SCHEMA$.getField("cast").schema());
+        a0 = new SpecificData.Array<java.lang.String>((int)size0, SCHEMA$.getField("cast").schema());
         this.cast = a0;
       } else a0.clear();
-      SpecificData.Array<String> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<String>)a0 : null);
+      SpecificData.Array<java.lang.String> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<java.lang.String>)a0 : null);
       for ( ; 0 < size0; size0 = in.arrayNext()) {
         for ( ; size0 != 0; size0--) {
-          String e0 = (ga0 != null ? ga0.peek() : null);
+          java.lang.String e0 = (ga0 != null ? ga0.peek() : null);
           e0 = in.readString();
           a0.add(e0);
         }
@@ -472,15 +474,15 @@ public class MovieAvro extends org.apache.avro.specific.SpecificRecordBase imple
 
         case 2:
           long size0 = in.readArrayStart();
-          java.util.List<String> a0 = this.cast;
+          java.util.List<java.lang.String> a0 = this.cast;
           if (a0 == null) {
-            a0 = new SpecificData.Array<String>((int)size0, SCHEMA$.getField("cast").schema());
+            a0 = new SpecificData.Array<java.lang.String>((int)size0, SCHEMA$.getField("cast").schema());
             this.cast = a0;
           } else a0.clear();
-          SpecificData.Array<String> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<String>)a0 : null);
+          SpecificData.Array<java.lang.String> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<java.lang.String>)a0 : null);
           for ( ; 0 < size0; size0 = in.arrayNext()) {
             for ( ; size0 != 0; size0--) {
-              String e0 = (ga0 != null ? ga0.peek() : null);
+              java.lang.String e0 = (ga0 != null ? ga0.peek() : null);
               e0 = in.readString();
               a0.add(e0);
             }
