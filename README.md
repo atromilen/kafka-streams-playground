@@ -1,25 +1,38 @@
-# kafka-streams-poc
-> This project has **Java** as base language and is built with **Gradle**. The project execution is through **Docker Compose**.<br />
-This repository is intended to follow the examples in the O'reilly book Kafka _"Streams in Action, 2nd Edition (MEAP)"_
+# kafka-streams-playground
+> Source code repository that has intended to put in practice Kafka and Kafka Streams knowledge.
+> 
+> Every commit will represent and increment or new functionality, such as:
+>
+> - schema-registry plugins configuration
+> - a new kafka producer
+> - a new kafka consumer
+> - a new kafka stream consumer
+> - and so on...<br />
+> 
+> 
+> _Developed by [atromilen](https://github.com/atromilen)_
 
-### Required software (pre-requisites)
-1. [Docker](https://docs.docker.com/get-docker/) to be able to run the Kafka ecosystem container. 
-2. For Schema Registry testing using the REST API in terminal, you will need to install:
-   1. [curl](https://curl.se/) to execute request to REST API for Schema Registry. It should be installed 
-   on Windows 10+ and Mac (in Linux, you can use a package manager to install it).
-   2. [JQ](https://stedolan.github.io/jq/) that is a JSON command-line processor used in the example commands.
+## Prerequisites
+1. Java (jdk11) is the base language, so it's required to be installed in order to execute the application. 
+2. [Docker](https://docs.docker.com/get-docker/) that allow us to start all the Kafka ecosystem registered in file `docker-compose`.
+3. [Make](https://linuxhint.com/install-make-ubuntu/) is required to run the makefile that builds and executes the application.
+This may be built into some Unix based OS or can be installed through package managers such as apt-get or be part of development tools like Xcode in mac osx. 
+In Windows OS you can install it through some package manager like Scoop or Chocolatey.
 
-### Project execution
-In order to start the Kafka Broker and its ecosystem, open a new terminal in the root project folder and run the next command:
+## Getting Started
+Enter the next command in a terminal to run the project:
 
 ```bash
-docker-compose up -d
+make start-up
 ```
 
-This will start Zookeeper, Kafka and the Schema Registry in background (detached mode).
+This command executes the [makefile](makefile) task `start-up` that automates in one single command the next tasks:
+- start all Kafka's ecosystem and the Schema Registry instructed in docker-compose file.
+- register in the schema-registry such subjects under `src/main/avro` that are registered in file `gradle.build`
+- doing a cleaning and build of the project using gradle
 
-## About Gradle configuration
-All the plugins, dependencies and tasks registered in the gradle.build will be detailed in here for documentation purposes.
+## Gradle plugins and dependencies
+To next will be described all the plugins and dependencies, and also the tasks registered in the file gradle.build.
 
 ### Plugins
 - `com.github.imflog.kafka-schema-registry-gradle-plugin:` allow to perform tasks related to the Schema Registry, such as:
@@ -30,81 +43,12 @@ All the plugins, dependencies and tasks registered in the gradle.build will be d
 
     Plugin configuration can be putted in the entry `schemaRegistry { ... }` and the documentation and DSL examples can be found [here](https://github.com/ImFlog/schema-registry-plugin).
 
-- `com.github.davidmc24.gradle.plugin.avro:` Plugin that allow to generate Java code starting from AVRO schemas (src/main/avro/). The output for the generated classes is `build/generated-main-avro-java/{package_from_namespace}` and we can copy this auto-generated code and paste in our project.<br/>
+- `com.github.davidmc24.gradle.plugin.avro-base:` Plugin that allow to generate Java code starting from AVRO schemas (src/main/avro). 
+Using plugin `avro-base` instead avro, allows us to customize the output destination for the generated classes (`src/main/java/{package_from_namespace}` in our case).<br/>
 
     Documentation about the plugin can be found [here](https://github.com/davidmc24/gradle-avro-plugin).
     NOTE: this plugin needs to be accompanied by the dependency `implementation "org.apache.avro:avro:1.11.0"`
-    
-## Command line tests
-It's possible interact with the Kafka ecosystem using the terminal. Some examples will be detailed in the following sections.
 
-### Testing the broker: Create a topic, produce message and send them to a Kafka topic and consume these using terminal
-1. Open a new terminal window and run the **docker-compose exec broker bash** command to get a shell on the broker container 
-2. Once the container shell is opened, execute the next command in order to create a new topic:
-```bash
-kafka-topics --create --topic first-topic\
- --bootstrap-server localhost:9092\
- --replication-factor 1\
- --partitions 1
-```
-3. In the same shell where you created the topic, start a new kafka producer using the next command:
-```bash
-kafka-console-producer --topic first-topic\
- --broker-list localhost:9092\
- --property parse.key=true\
- --property key.separator=":"
-```
-4. In the same window, send 3 new messages to the first-topic (Note: it's necessary use the __colon__ to differentiate the keys and values for each record)
-```bash
-key:my first message
-key:is something
-key:very simple
-```
-5. Now it's time to consume the recently created messages in first-topic. Open a new terminal and start a new container bash with the command **docker-compose exec broker bash**. Now
-Once the container shell is opened, insert the next command:
-```bash
-kafka-console-consumer --topic first-topic\
- --bootstrap-server localhost:9092\
- --from-beginning\
- --property print.key=true\
- --property key.separator="-"
-```
-6. You should see the next output in the console
-
-```
-key-my first message
-key-is something
-key-very simple
-```
-
-### Testing the Schema Registry through the REST API
-1. In order to add an AVRO schema to the Schema Registry, run the next command:
-```bash
-jq '. | {schema: tojson}' src/main/avro/avenger.avsc | \
-curl -s -X POST http://localhost:8081/subjects/avro-avengers-value/versions\
--H "Content-Type: application/vnd.schemaregistry.v1+json" \
--d @-  \
-| jq
-```
-
-2. Now you can list all the subjects of registered schemas in the Schema Registry:
-```bash
-curl -s "http://localhost:8081/subjects" | jq
-```
-
-3. Try to get versions history for a given schema (avro-avengers)
-```bash
-curl -s "http://localhost:8081/subjects/avro-avengers-value/versions" | jq
-```
-
-4. Now is time to get the definition for a specific version of a schema
-```bash
-curl -s "http://localhost:8081/subjects/avro-avengers-value/versions/1"\
-| jq '.'
-```
-
-5. If you don't care about the previous versions of the schema, and you want to see the latest version, you can execute:
-```bash
-curl -s "http://localhost:8081/subjects/avro-avengers-value/
-  versions/latest" | jq '.'
-```
+### Dependencies
+- `org.apache.kafka:kafka-clients:` needed for get access to Kafka client configs (ProducerConfig and ConsumerConfig).
+- `io.confluent:kafka-avro-serializer:7.0.1:` provide the AVRO (De)Serializers
